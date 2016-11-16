@@ -1,0 +1,3 @@
+class RscTitles {
+	#include "statusBar\statusbar.hpp"
+}

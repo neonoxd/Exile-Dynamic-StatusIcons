@@ -1,0 +1,1 @@
+[] execVM "statusBar\statusBar.sqf";
