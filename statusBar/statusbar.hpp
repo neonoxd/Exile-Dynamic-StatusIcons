@@ -43,5 +43,12 @@ class StatusBar
 				y = 1 / 2 + 0.15;
 				text = "";
 			}; 
+			class TemperatureControl : HealthControl
+			{    
+				idc = 13376;
+				//y = 0.30;
+				y = 1 / 2 + 0.30;
+				text = "";
+			}; 
 		};	
 };
