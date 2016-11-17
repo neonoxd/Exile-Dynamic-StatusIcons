@@ -2,6 +2,7 @@
 	disableSerialization;
 	uiSleep 2;
 
+	
 	sb_getIcon = {
 		_value = _this select 0;
 		_icon = "100";
@@ -37,35 +38,38 @@
 		((uiNamespace getVariable "StatusBar")displayCtrl 13375)ctrlSetText format["statusBar\icons\thirst\%1.paa",_iconw];
 		
 	};
-
-
-	_health = round ((1 - (damage player)) * 100);
-	_hunger = round (ExileClientPlayerAttributes select 2);
-	_thirst = round (ExileClientPlayerAttributes select 3);
-
-	_hpIcon = [_health] call sb_getIcon;
-	_hungerIcon = [_hunger] call sb_getIcon;
-	_thirstIcon = [_thirst] call sb_getIcon;
-
-	_rscLayer = "StatusBar" call BIS_fnc_rscLayer;
-	_rscLayer = cutRsc["StatusBar","PLAIN",1,false];
-	[_hpIcon,_hungerIcon,_thirstIcon] call sb_updateIcons;
-
-
-	_lastHp = _health;
-	_lastHunger = _hunger;
-	_lastThirst = _thirst;
-
-	while {true} do {
-
-		uiSleep 0.5;
-		
+	
+	
+	sb_init = {
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
+
+		_hpIcon = [_health] call sb_getIcon;
+		_hungerIcon = [_hunger] call sb_getIcon;
+		_thirstIcon = [_thirst] call sb_getIcon;
+
+		_rscLayer = "StatusBar" call BIS_fnc_rscLayer;
+		_rscLayer = cutRsc["StatusBar","PLAIN",1,false];
+		[_hpIcon,_hungerIcon,_thirstIcon] call sb_updateIcons;
+
+
+		_lastHp = _health;
+		_lastHunger = _hunger;
+		_lastThirst = _thirst;
+		
+		player setVariable ["sb_lastArray", [_lastHp,_lastHunger,_lastThirst]];
+	};
+	
+	
+	sb_maintain = {
+		_health = round ((1 - (damage player)) * 100);
+		_hunger = round (ExileClientPlayerAttributes select 2);;
+		_thirst = round (ExileClientPlayerAttributes select 3);
+		//_bodyTemperature = [ExileClientPlayerAttributes select 5, 1] call ExileClient_util_math_round;
 		
 		_statchanged = false;
-		_lastArray = [_lastHp, _lastHunger, _lastThirst];
+		_lastArray = player getVariable "sb_lastArray";
 		_currentArray = [_health,_hunger,_thirst];
 		
 		for "_i" from 0 to 2 do
@@ -80,10 +84,8 @@
 		};
 		
 		if (_statchanged) then {
-		
-			_lastHp = _health;
-			_lastHunger = _hunger;
-			_lastThirst = _thirst;
+
+			player setVariable ["sb_lastArray", [_health,_hunger,_thirst]];
 		
 			_currentHp = [_health] call sb_getIcon;
 			_currentFood =  [_hunger] call sb_getIcon;
@@ -92,7 +94,9 @@
 			[_currentHp,_currentFood,_currentThirst] call sb_updateIcons;
 			
 		};
-
 	};
+	
+	[] call sb_init;
+	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
 
 
