@@ -1,6 +1,13 @@
 	waitUntil {!(isNull (findDisplay 46))};
 	disableSerialization;
-	uiSleep 10;
+	uiSleep 2;
+	
+	waitUntil {
+		/*_health = round ((1 - (damage player)) * 100);
+		_hunger = round (ExileClientPlayerAttributes select 2);
+		_thirst = round (ExileClientPlayerAttributes select 3);*/
+		(!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)}) && (!isNil {damage player});
+	};
 	
 	sb_hideExileIcons = {
 	
@@ -147,6 +154,11 @@
 	
 	
 	sb_init = {
+		waitUntil {
+		(!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)}) && (!isNil {damage player});
+		};
+		
+		systemChat "starting status icons initialisation";
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -172,6 +184,10 @@
 	
 	
 	sb_maintain = {
+	
+
+		
+		if ((!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)}) && (!isNil {damage player})) then {
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -223,6 +239,9 @@
 		};
 			[] call sb_checkTemp;
 			//[] call sb_hideExileIcons;
+		
+		};
+		
 	};
 	
 	
