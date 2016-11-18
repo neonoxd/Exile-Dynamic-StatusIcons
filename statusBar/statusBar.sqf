@@ -2,6 +2,40 @@
 	disableSerialization;
 	uiSleep 10;
 	
+	sb_hideExileIcons = {
+	
+		_display = uiNamespace getVariable "RscExileHUD";
+		
+		_statControl = _display displayCtrl 1301;
+		_statControl ctrlSetText "";
+		
+		_hungerValueControl = _display displayCtrl 1302;
+		_hungerValueControl ctrlSetText "";
+		_hungerLabelControl = _display displayCtrl 1303;
+		_hungerLabelControl ctrlSetText "";
+		
+		_thirstValueControl = _display displayCtrl 1304;
+		_thirstValueControl ctrlSetText "";
+		_thirstLabelControl = _display displayCtrl 1305;
+		_thirstLabelControl ctrlSetText "";
+		
+		_healthValueControl = _display displayCtrl 1306;
+		_healthValueControl ctrlSetText "";
+		_healthLabelControl = _display displayCtrl 1307;
+		_healthLabelControl ctrlSetText "";
+		
+		_environmentTemperatureValueControl = _display displayCtrl 1308;
+		_environmentTemperatureValueControl ctrlSetText "";
+		_environmentTemperatureLabelControl = _display displayCtrl 1309;
+		_environmentTemperatureLabelControl ctrlSetText "";
+		
+		_bodyTemperatureValueControl = _display displayCtrl 1310;
+		_bodyTemperatureValueControl ctrlSetText "";
+		_bodyTemperatureLabelControl = _display displayCtrl 1311;
+		_bodyTemperatureLabelControl ctrlSetText "";
+		
+	};
+	
 	sb_getIcon = {
 		_value = _this select 0;
 		_icon = "100";
@@ -110,7 +144,8 @@
 		[_hpIcon,_hungerIcon,_thirstIcon,true] call sb_updateIcons;
 		[] call sb_checkTemp;
 
-
+		[] call sb_hideExileIcons;
+		
 	};
 	
 	
@@ -167,6 +202,7 @@
 			
 		};
 			[] call sb_checkTemp;
+			[] call sb_hideExileIcons;
 	};
 	
 	
