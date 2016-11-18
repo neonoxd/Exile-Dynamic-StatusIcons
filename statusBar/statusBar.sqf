@@ -7,64 +7,53 @@
 		_display = uiNamespace getVariable "RscExileHUD";
 		
 		_statControl = _display displayCtrl 1301;
-		_statControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1301;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_hungerValueControl = _display displayCtrl 1302;
-		_hungerValueControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1302;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_hungerLabelControl = _display displayCtrl 1303;
-		_hungerLabelControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1303;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_thirstValueControl = _display displayCtrl 1304;
-		_thirstValueControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1304;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_thirstLabelControl = _display displayCtrl 1305;
-		_thirstLabelControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1305;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_healthValueControl = _display displayCtrl 1306;
-		_healthValueControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1306;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		_healthLabelControl = _display displayCtrl 1307;
-		_healthLabelControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1307;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_environmentTemperatureValueControl = _display displayCtrl 1308;
-		_environmentTemperatureValueControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1308;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		_environmentTemperatureLabelControl = _display displayCtrl 1309;
-		_environmentTemperatureLabelControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1309;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
 		_bodyTemperatureValueControl = _display displayCtrl 1310;
-		_bodyTemperatureValueControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1310;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		_bodyTemperatureLabelControl = _display displayCtrl 1311;
-		_bodyTemperatureLabelControl ctrlSetText "";
 		_ctrl = _display displayCtrl 1311;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
@@ -160,9 +149,7 @@
 	sb_init = {
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
-		//_hunger = player getVariable "sb_hunger";
 		_thirst = round (ExileClientPlayerAttributes select 3);
-		//_thirst = player getVariable "sb_thirst";
 		
 		_hpIcon = [_health] call sb_getIcon;
 		_hungerIcon = [_hunger] call sb_getIcon;
@@ -187,9 +174,7 @@
 	sb_maintain = {
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
-		//_hunger = player getVariable "sb_hunger";
 		_thirst = round (ExileClientPlayerAttributes select 3);
-		//_thirst = player getVariable "sb_thirst";
 		
 		_statchanged = false;
 		
@@ -244,12 +229,5 @@
 	diag_log "starting statusbar";
 	[] call sb_init;
 	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
-	/*while {true} do {
-
-		uiSleep 0.5;
-		
-		[] call sb_maintain;
-
-	};*/
 
 
