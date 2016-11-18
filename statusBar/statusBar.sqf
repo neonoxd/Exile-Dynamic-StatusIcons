@@ -222,12 +222,14 @@
 			
 		};
 			[] call sb_checkTemp;
-			[] call sb_hideExileIcons;
+			//[] call sb_hideExileIcons;
 	};
 	
 	
 	diag_log "starting statusbar";
 	[] call sb_init;
 	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
+	uiSleep 5;
+	[] call sb_hideExileIcons;
 
 
