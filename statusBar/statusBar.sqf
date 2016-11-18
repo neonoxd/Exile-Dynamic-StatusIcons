@@ -8,31 +8,66 @@
 		
 		_statControl = _display displayCtrl 1301;
 		_statControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1301;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		
 		_hungerValueControl = _display displayCtrl 1302;
 		_hungerValueControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1302;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
+		
 		_hungerLabelControl = _display displayCtrl 1303;
 		_hungerLabelControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1303;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		
 		_thirstValueControl = _display displayCtrl 1304;
 		_thirstValueControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1304;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
+		
 		_thirstLabelControl = _display displayCtrl 1305;
 		_thirstLabelControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1305;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		
 		_healthValueControl = _display displayCtrl 1306;
 		_healthValueControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1306;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		_healthLabelControl = _display displayCtrl 1307;
 		_healthLabelControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1307;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		
 		_environmentTemperatureValueControl = _display displayCtrl 1308;
 		_environmentTemperatureValueControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1308;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		_environmentTemperatureLabelControl = _display displayCtrl 1309;
 		_environmentTemperatureLabelControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1309;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		
 		_bodyTemperatureValueControl = _display displayCtrl 1310;
 		_bodyTemperatureValueControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1310;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		_bodyTemperatureLabelControl = _display displayCtrl 1311;
 		_bodyTemperatureLabelControl ctrlSetText "";
+		_ctrl = _display displayCtrl 1311;
+		_ctrl ctrlSetPosition [-10,-10,0,0];
+		_ctrl ctrlCommit 0;
 		
 	};
 	
