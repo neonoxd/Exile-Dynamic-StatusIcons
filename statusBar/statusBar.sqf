@@ -1,6 +1,6 @@
 	waitUntil {!(isNull (findDisplay 46))};
 	disableSerialization;
-	uiSleep 8;
+	uiSleep 10;
 	
 	sb_getIcon = {
 		_value = _this select 0;
@@ -91,8 +91,10 @@
 	sb_init = {
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
+		//_hunger = player getVariable "sb_hunger";
 		_thirst = round (ExileClientPlayerAttributes select 3);
-
+		//_thirst = player getVariable "sb_thirst";
+		
 		_hpIcon = [_health] call sb_getIcon;
 		_hungerIcon = [_hunger] call sb_getIcon;
 		_thirstIcon = [_thirst] call sb_getIcon;
@@ -115,7 +117,9 @@
 	sb_maintain = {
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
+		//_hunger = player getVariable "sb_hunger";
 		_thirst = round (ExileClientPlayerAttributes select 3);
+		//_thirst = player getVariable "sb_thirst";
 		
 		_statchanged = false;
 		
@@ -159,7 +163,7 @@
 				_upThirst = _currentThirst;
 			};
 		
-			[_upHp,_upHunger,_upThirst,_uc] call sb_updateIcons;
+			[_upHp,_upHunger,_upThirst] call sb_updateIcons;
 			
 		};
 			[] call sb_checkTemp;
@@ -169,4 +173,12 @@
 	diag_log "starting statusbar";
 	[] call sb_init;
 	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
+	/*while {true} do {
+
+		uiSleep 0.5;
+		
+		[] call sb_maintain;
+
+	};*/
+
 
