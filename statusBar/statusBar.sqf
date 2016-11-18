@@ -1,6 +1,6 @@
 	waitUntil {!(isNull (findDisplay 46))};
 	disableSerialization;
-	uiSleep 2;
+	uiSleep 10;
 	
 	waitUntil {
 		/*_health = round ((1 - (damage player)) * 100);
