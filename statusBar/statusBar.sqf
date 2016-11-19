@@ -3,66 +3,14 @@
 	uiSleep 4;
 	
 	waitUntil {
-		/*_health = round ((1 - (damage player)) * 100);
-		_hunger = round (ExileClientPlayerAttributes select 2);
-		_thirst = round (ExileClientPlayerAttributes select 3);*/
 		(!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)});
 	};
 	
 	sb_hideExileIcons = {
-		
+		//hiding the exile statscontrols
 		waitUntil {(!isNil {uiNamespace getVariable "RscExileHUD"})};
 		_display = uiNamespace getVariable "RscExileHUD";
-		
-		_statControl = _display displayCtrl 1301;
-		_ctrl = _display displayCtrl 1301;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_hungerValueControl = _display displayCtrl 1302;
-		_ctrl = _display displayCtrl 1302;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_hungerLabelControl = _display displayCtrl 1303;
-		_ctrl = _display displayCtrl 1303;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_thirstValueControl = _display displayCtrl 1304;
-		_ctrl = _display displayCtrl 1304;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_thirstLabelControl = _display displayCtrl 1305;
-		_ctrl = _display displayCtrl 1305;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_healthValueControl = _display displayCtrl 1306;
-		_ctrl = _display displayCtrl 1306;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		_healthLabelControl = _display displayCtrl 1307;
-		_ctrl = _display displayCtrl 1307;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_environmentTemperatureValueControl = _display displayCtrl 1308;
-		_ctrl = _display displayCtrl 1308;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		_environmentTemperatureLabelControl = _display displayCtrl 1309;
-		_ctrl = _display displayCtrl 1309;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		
-		_bodyTemperatureValueControl = _display displayCtrl 1310;
-		_ctrl = _display displayCtrl 1310;
-		_ctrl ctrlSetPosition [-10,-10,0,0];
-		_ctrl ctrlCommit 0;
-		_bodyTemperatureLabelControl = _display displayCtrl 1311;
-		_ctrl = _display displayCtrl 1311;
+		_ctrl = _display displayCtrl 1300;
 		_ctrl ctrlSetPosition [-10,-10,0,0];
 		_ctrl ctrlCommit 0;
 		
@@ -160,6 +108,8 @@
 		};
 		
 		systemChat "Initialising Status Icons...";
+		diag_log "Initialising Status Icons...";
+		
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -187,7 +137,7 @@
 	sb_maintain = {
 	
 		if ((isNil {round (ExileClientPlayerAttributes select 3)}) || (isNil {round (ExileClientPlayerAttributes select 2)})) then {
-			systemChat "Status variables are NIL, reinitialising...";
+			diag_log "Status variables are NIL, reinitialising...";
 			[] call sb_init;
 		} else {
 		
@@ -246,28 +196,22 @@
 				
 				_disp = (uiNamespace getVariable "StatusBar");
 				if (isNull _disp) then {
-				
-					systemChat "Status Icons closed. Redrawing.";	
+					
+					diag_log "Status Icons closed. Redrawing.";	
 					_rscLayer = "StatusBar" call BIS_fnc_rscLayer; 
 					_rscLayer = cutRsc["StatusBar","PLAIN",1,false];
+					
 
 					[] call sb_init;
 				};
 				
-		
 		};
 	
-
-		
-		
-		
 	};
 	
 	
 	diag_log "starting statusbar";
 	[] call sb_init;
 	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
-	//uiSleep 5;
-	//[] call sb_hideExileIcons;
 
 
