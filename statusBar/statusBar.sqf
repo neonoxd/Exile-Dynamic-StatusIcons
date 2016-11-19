@@ -1,6 +1,6 @@
 	waitUntil {!(isNull (findDisplay 46))};
 	disableSerialization;
-	uiSleep 10;
+	uiSleep 4;
 	
 	waitUntil {
 		/*_health = round ((1 - (damage player)) * 100);
@@ -158,7 +158,7 @@
 			(!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)});
 		};
 		
-		systemChat "starting status icons initialisation";
+		systemChat "Trying to initialise Status Icons...";
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -185,62 +185,68 @@
 	
 	sb_maintain = {
 	
+		if ((isNil {round (ExileClientPlayerAttributes select 3)}) || (isNil {round (ExileClientPlayerAttributes select 2)})) then {
+			systemChat "Status variables are NIL, reinitialising..."
+			[] call sb_init;
+		} else {
+		
+			_health = round ((1 - (damage player)) * 100);
+			_hunger = round (ExileClientPlayerAttributes select 2);
+			_thirst = round (ExileClientPlayerAttributes select 3);
+			
+			_statchanged = false;
+			
+			_lastArray = player getVariable "sb_lastArray";
+			_currentArray = [_health,_hunger,_thirst];
+			
+			_toUpdate = [0,0,0];
+			for "_i" from 0 to 2 do
+			{
+				_last = [(_lastArray select _i)] call sb_getIcon;
+				_cur = [(_currentArray select _i)] call sb_getIcon;
+				
+				if (_last != _cur) then {
+					_toUpdate set [_i,1];
+					_statchanged = true;
+				};
+				
+			};
+			
+			
+			
+			if (_statchanged) then {
+				
+				player setVariable ["sb_lastArray", [_health,_hunger,_thirst]];
+				
+				_currentHp = [_health] call sb_getIcon;
+				_currentFood =  [_hunger] call sb_getIcon;
+				_currentThirst = [_thirst] call sb_getIcon;
+				
+				_upHp = "-1";
+				_upHunger = "-1";
+				_upThirst = "-1";
+				
+				if ((_toUpdate select 0) == 1) then {
+					_upHp = _currentHp;
+				};
+				if ((_toUpdate select 1) == 1) then {
+					_upHunger = _currentFood;
+				};
+				if ((_toUpdate select 2) == 1) then {
+					_upThirst = _currentThirst;
+				};
+			
+				[_upHp,_upHunger,_upThirst] call sb_updateIcons;
+				
+			};
+				[] call sb_checkTemp;
+				//[] call sb_hideExileIcons;
+		
+		};
+	
 
 		
-		if ((!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)})) then {
-		_health = round ((1 - (damage player)) * 100);
-		_hunger = round (ExileClientPlayerAttributes select 2);
-		_thirst = round (ExileClientPlayerAttributes select 3);
 		
-		_statchanged = false;
-		
-		_lastArray = player getVariable "sb_lastArray";
-		_currentArray = [_health,_hunger,_thirst];
-		
-		_toUpdate = [0,0,0];
-		for "_i" from 0 to 2 do
-		{
-			_last = [(_lastArray select _i)] call sb_getIcon;
-			_cur = [(_currentArray select _i)] call sb_getIcon;
-			
-			if (_last != _cur) then {
-				_toUpdate set [_i,1];
-				_statchanged = true;
-			};
-			
-		};
-		
-		
-		
-		if (_statchanged) then {
-			
-			player setVariable ["sb_lastArray", [_health,_hunger,_thirst]];
-			
-			_currentHp = [_health] call sb_getIcon;
-			_currentFood =  [_hunger] call sb_getIcon;
-			_currentThirst = [_thirst] call sb_getIcon;
-			
-			_upHp = "-1";
-			_upHunger = "-1";
-			_upThirst = "-1";
-			
-			if ((_toUpdate select 0) == 1) then {
-				_upHp = _currentHp;
-			};
-			if ((_toUpdate select 1) == 1) then {
-				_upHunger = _currentFood;
-			};
-			if ((_toUpdate select 2) == 1) then {
-				_upThirst = _currentThirst;
-			};
-		
-			[_upHp,_upHunger,_upThirst] call sb_updateIcons;
-			
-		};
-			[] call sb_checkTemp;
-			//[] call sb_hideExileIcons;
-		
-		};
 		
 	};
 	
@@ -248,7 +254,7 @@
 	diag_log "starting statusbar";
 	[] call sb_init;
 	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
-	uiSleep 5;
-	[] call sb_hideExileIcons;
+	//uiSleep 5;
+	//[] call sb_hideExileIcons;
 
 
