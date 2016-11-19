@@ -10,7 +10,8 @@
 	};
 	
 	sb_hideExileIcons = {
-	
+		
+		waitUntil {(!isNil {uiNamespace getVariable "RscExileHUD"})};
 		_display = uiNamespace getVariable "RscExileHUD";
 		
 		_statControl = _display displayCtrl 1301;
@@ -186,7 +187,7 @@
 	sb_maintain = {
 	
 		if ((isNil {round (ExileClientPlayerAttributes select 3)}) || (isNil {round (ExileClientPlayerAttributes select 2)})) then {
-			systemChat "Status variables are NIL, reinitialising..."
+			systemChat "Status variables are NIL, reinitialising...";
 			[] call sb_init;
 		} else {
 		
