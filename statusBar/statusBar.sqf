@@ -159,7 +159,7 @@
 			(!isNil {round (ExileClientPlayerAttributes select 3)}) && (!isNil {round (ExileClientPlayerAttributes select 2)});
 		};
 		
-		systemChat "Trying to initialise Status Icons...";
+		systemChat "Initialising Status Icons...";
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -242,6 +242,18 @@
 			};
 				[] call sb_checkTemp;
 				//[] call sb_hideExileIcons;
+				
+				
+				_disp = (uiNamespace getVariable "StatusBar");
+				if (isNull _disp) then {
+				
+					systemChat "Status Icons closed. Redrawing.";	
+					_rscLayer = "StatusBar" call BIS_fnc_rscLayer; 
+					_rscLayer = cutRsc["StatusBar","PLAIN",1,false];
+
+					[] call sb_init;
+				};
+				
 		
 		};
 	
