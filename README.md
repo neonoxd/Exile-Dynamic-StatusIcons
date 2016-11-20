@@ -10,7 +10,7 @@ My first ever released script that's written for the GUI, so feel free to critic
     If there is no RscTitles class add:
     class RscTitles {
 	    #include "statusIcons\StatusIcons.hpp"
-    }
+    };
     open initPlayerLocal.sqf
     Add: [] execVM "statusIcons\statusIcons.sqf";
     RePBO your mission file
