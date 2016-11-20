@@ -1,3 +1,3 @@
 class RscTitles {
-	#include "statusBar\statusbar.hpp"
-}
+	#include "statusIcons\StatusIcons.hpp"
+};

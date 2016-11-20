@@ -4,15 +4,15 @@ My first ever released script that's written for the GUI, so feel free to critic
 
 ### Installation:
 
-    Copy the statusBar folder to mission root.
+    Copy the statusIcons folder to mission root.
     Open description.ext, look for class RscTitles
     Add:    #include "statusBar\statusbar.hpp"
     If there is no RscTitles class add:
     class RscTitles {
-	    #include "statusBar\statusbar.hpp"
+	    #include "statusIcons\StatusIcons.hpp"
     }
     open initPlayerLocal.sqf
-    Add: [] execVM "statusBar\statusBar.sqf";
+    Add: [] execVM "statusIcons\statusIcons.sqf";
     RePBO your mission file
 
 

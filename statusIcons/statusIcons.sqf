@@ -7,7 +7,7 @@
 	};
 	
 	sb_hideExileIcons = {
-		//hiding the exile statscontrols
+		
 		waitUntil {(!isNil {uiNamespace getVariable "RscExileHUD"})};
 		_display = uiNamespace getVariable "RscExileHUD";
 		_ctrl = _display displayCtrl 1300;
@@ -58,13 +58,13 @@
 
 	sb_checkTemp = {
 			
-			_display = (uiNamespace getVariable "StatusBar");
+			_display = (uiNamespace getVariable "StatusIcons");
 			
 			_bodyTemperature = [ExileClientPlayerAttributes select 5, 1] call ExileClient_util_math_round;
 	
 			if ( (_bodyTemperature< 36) && ((player getVariable "sb_isCold") isEqualTo false) ) then {
 				player setVariable["sb_isCold",true];
-				(_display displayCtrl 13376) ctrlSetText "statusBar\icons\status\cold.paa";
+				(_display displayCtrl 13376) ctrlSetText "statusIcons\icons\status\cold.paa";
 				[(_display displayCtrl 13376)] call sb_fadeIn;
 			};
 			
@@ -82,20 +82,20 @@
 		_iconw = 			_this select 2;
 		
 
-		_display = (uiNamespace getVariable "StatusBar");
+		_display = (uiNamespace getVariable "StatusIcons");
 		
 		if (_iconh != "-1") then {
-			(_display displayCtrl 13373) ctrlSetText format["statusBar\icons\health\%1.paa",_iconh];
+			(_display displayCtrl 13373) ctrlSetText format["statusIcons\icons\health\%1.paa",_iconh];
 			[(_display displayCtrl 13373)] call sb_fadeIn;
 		};
 		
 		if (_iconf != "-1") then {
-			(_display displayCtrl 13374) ctrlSetText format["statusBar\icons\hunger\%1.paa",_iconf];
+			(_display displayCtrl 13374) ctrlSetText format["statusIcons\icons\hunger\%1.paa",_iconf];
 			[(_display displayCtrl 13374)] call sb_fadeIn;
 		};
 		
 		if (_iconw != "-1") then {
-			(_display displayCtrl 13375) ctrlSetText format["statusBar\icons\thirst\%1.paa",_iconw];
+			(_display displayCtrl 13375) ctrlSetText format["statusIcons\icons\thirst\%1.paa",_iconw];
 			[(_display displayCtrl 13375)] call sb_fadeIn;
 		};
 		
@@ -108,8 +108,6 @@
 		};
 		
 		systemChat "Initialising Status Icons...";
-		diag_log "Initialising Status Icons...";
-		
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -124,8 +122,8 @@
 		
 		player setVariable ["sb_lastArray", [_lastHp,_lastHunger,_lastThirst]];
 		player setVariable ["sb_isCold",false];
-		_rscLayer = "StatusBar" call BIS_fnc_rscLayer;
-		_rscLayer = cutRsc["StatusBar","PLAIN",1,false];
+		_rscLayer = "StatusIcons" call BIS_fnc_rscLayer;
+		_rscLayer = cutRsc["StatusIcons","PLAIN",1,false];
 		[_hpIcon,_hungerIcon,_thirstIcon,true] call sb_updateIcons;
 		[] call sb_checkTemp;
 
@@ -137,7 +135,7 @@
 	sb_maintain = {
 	
 		if ((isNil {round (ExileClientPlayerAttributes select 3)}) || (isNil {round (ExileClientPlayerAttributes select 2)})) then {
-			diag_log "Status variables are NIL, reinitialising...";
+			systemChat "Status variables are NIL, reinitialising...";
 			[] call sb_init;
 		} else {
 		
@@ -194,24 +192,31 @@
 				//[] call sb_hideExileIcons;
 				
 				
-				_disp = (uiNamespace getVariable "StatusBar");
+				_disp = (uiNamespace getVariable "StatusIcons");
 				if (isNull _disp) then {
 					
-					diag_log "Status Icons closed. Redrawing.";	
-					_rscLayer = "StatusBar" call BIS_fnc_rscLayer; 
-					_rscLayer = cutRsc["StatusBar","PLAIN",1,false];
+					systemChat "Status Icons closed. Redrawing.";	
+					_rscLayer = "StatusIcons" call BIS_fnc_rscLayer; 
+					_rscLayer = cutRsc["StatusIcons","PLAIN",1,false];
 					
 
 					[] call sb_init;
 				};
 				
+		
 		};
 	
+
+		
+		
+		
 	};
 	
 	
-	diag_log "starting statusbar";
+	diag_log "starting status icons";
 	[] call sb_init;
 	[0.5, sb_maintain, [], true] call ExileClient_system_thread_addtask;
+	//uiSleep 5;
+	//[] call sb_hideExileIcons;
 
 

@@ -1,1 +1,1 @@
-[] execVM "statusBar\statusBar.sqf";
+[] execVM "statusIcons\statusIcons.sqf";
