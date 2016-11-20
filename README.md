@@ -1,6 +1,9 @@
 # Exile-Dynamic-StatusIcons
 
-My first ever released script that's written for the GUI, so feel free to criticize :D 
+I present you my first ever release.
+A Dynamic Status Icons script for EXILE Mod.
+
+Displaying basic stats for players, functioning as a replacement for Exile's default Status HUD.
 
 ### Installation:
 
