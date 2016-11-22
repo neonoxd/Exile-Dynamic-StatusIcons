@@ -9,7 +9,7 @@ Displaying basic stats for players, functioning as a replacement for Exile's def
 
     Copy the statusIcons folder to mission root.
     Open description.ext, look for class RscTitles
-    Add:    #include "statusBar\statusbar.hpp"
+    Add:    #include "statusIcons\StatusIcons.hpp"
     If there is no RscTitles class add:
     class RscTitles {
 	    #include "statusIcons\StatusIcons.hpp"
