@@ -7,7 +7,7 @@ Displaying basic stats for players, functioning as a replacement for Exile's def
 
 ### Installation:
 
-    Copy the statusIcons folder to mission root.
+    Copy the statusIcons & overrides folders to mission root.
     Open description.ext, look for class RscTitles
     Add:    #include "statusIcons\StatusIcons.hpp"
     If there is no RscTitles class add:
@@ -16,6 +16,11 @@ Displaying basic stats for players, functioning as a replacement for Exile's def
     };
     open initPlayerLocal.sqf
     Add: [] execVM "statusIcons\statusIcons.sqf";
+	
+	Open config.cpp.
+	Look for CfgExileCustomCode class.
+	Add: ExileClient_gui_hud_event_onKeyDown = "overrides\ExileClient_gui_hud_event_onKeyDown.sqf";
+	
     RePBO your mission file
 
 

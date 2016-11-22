@@ -16,6 +16,68 @@
 		
 	};
 	
+	TOGGLESTUFF = {
+		if (player getVariable "infotoggled" isEqualTo true) then {
+			player setVariable["infotoggled",false];
+		} else {
+			player setVariable["infotoggled",true];
+		};
+	};
+	
+	sb_maintainInfo = {
+		_currentInfo = player getVariable "sb_info";
+		_currentToggled = player getVariable "infotoggled";
+		_w = 0.15;
+		_h = _w * 3/4;
+		_display = uiNamespace getVariable "StatusIcons"; 
+		
+		
+		
+		
+			_health = round ((1 - (damage player)) * 100);
+			_hunger = round (ExileClientPlayerAttributes select 2);
+			_thirst = round (ExileClientPlayerAttributes select 3);
+			
+			_ctrl = _display displayCtrl 13377;
+			_ctrl ctrlSetText format["%1%2",_health,'%'];
+			_ctrl = _display displayCtrl 13378;
+			_ctrl ctrlSetText format["%1%2",_hunger,'%'];
+			_ctrl = _display displayCtrl 13379;
+			_ctrl ctrlSetText format["%1%2",_thirst,'%'];
+		
+		
+		_hideControl = {
+			_idc = _this select 0;
+			_ctrl = _display displayCtrl _idc;
+			_y = (ctrlPosition _ctrl) select 1;
+			_ctrl ctrlSetFade 1; 
+			_ctrl ctrlSetPosition[0,_y,_w,_h]; 
+			_ctrl ctrlCommit 0.25;
+			player setVariable["sb_info",false];
+		};
+		_showControl = {
+			_idc = _this select 0;
+			_ctrl = _display displayCtrl _idc;
+			_y = (ctrlPosition _ctrl) select 1;
+			_ctrl ctrlSetFade 0; 
+			_ctrl ctrlSetPosition[0.1,_y,_w,_h]; 
+			_ctrl ctrlCommit 0.25;
+			player setVariable["sb_info",true];
+		};
+		
+		if (!(_currentInfo isEqualTo _currentToggled)) then {
+			if (_currentToggled isEqualTo false) then {
+				[13377] call _hideControl;
+				[13378] call _hideControl;
+				[13379] call _hideControl;
+			} else {
+				[13377] call _showControl;
+				[13378] call _showControl;
+				[13379] call _showControl;
+			};
+		};
+	};
+	
 	sb_getIcon = {
 		_value = _this select 0;
 		_icon = "100";
@@ -108,6 +170,8 @@
 		};
 		
 		systemChat "Initialising Status Icons...";
+		player setVariable["sb_info",true];
+		player setVariable["infotoggled",false];
 		_health = round ((1 - (damage player)) * 100);
 		_hunger = round (ExileClientPlayerAttributes select 2);
 		_thirst = round (ExileClientPlayerAttributes select 3);
@@ -189,27 +253,22 @@
 				
 			};
 				[] call sb_checkTemp;
+				[] call sb_maintainInfo;
 				//[] call sb_hideExileIcons;
 				
 				
 				_disp = (uiNamespace getVariable "StatusIcons");
 				if (isNull _disp) then {
+					if (alive player) then {
 					
 					systemChat "Status Icons closed. Redrawing.";	
 					_rscLayer = "StatusIcons" call BIS_fnc_rscLayer; 
 					_rscLayer = cutRsc["StatusIcons","PLAIN",1,false];
-					
-
 					[] call sb_init;
+					};
 				};
 				
-		
 		};
-	
-
-		
-		
-		
 	};
 	
 	

@@ -1,0 +1,6 @@
+class CfgExileCustomCode 
+{
+	//...
+	ExileClient_gui_hud_event_onKeyDown = 							"overrides\ExileClient_gui_hud_event_onKeyDown.sqf";
+	//...
+};

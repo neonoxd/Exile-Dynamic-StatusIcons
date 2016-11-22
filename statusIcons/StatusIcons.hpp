@@ -93,7 +93,23 @@ class StatusIcons {
 						y = 0.45;
 						text="";
 					};
-					
+					class HealthLabel: HealthIcon {
+						idc = 13377;
+						x = 0.1;
+						style = 2;
+						sizeEx="20 * pixelH";
+						text = "";
+					};
+					class FoodLabel: HealthLabel {
+						idc = 13378;
+						y = 0.15;
+						text = "";
+					};
+					class Thirst: HealthLabel {
+						idc = 13379;
+						y = 0.30;
+						text = "";
+					};
 				};
 			};
 		};	
