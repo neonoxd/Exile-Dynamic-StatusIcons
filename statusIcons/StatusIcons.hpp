@@ -20,7 +20,7 @@ class RscControlsGroup {
         height = 0.028;
     };
  
-    class ScrollBar { //for ARMA 2
+    class ScrollBar { 
         color[] = {1,1,1,0.600000};
         colorActive[] = {1,1,1,1};
         colorDisabled[] = {1,1,1,0.300000};
@@ -33,23 +33,24 @@ class RscControlsGroup {
     class Controls {};
 };
 class RscText{
-	colorText[]=
-						{"1",	"1","1",0.6};
+						colorText[]=
+						{"1",	"1","1",1};
 						text="";
 						font="EtelkaNarrowMediumPro";
-						shadow=0;
+						shadow=1;
 						fixedWidth=0;
 						type = 0;
 						linespacing=0;
 						style = 2096;
 						sizeEx="11 * pixelH";
 						colorBackground[] = {0,0,0,0};
+						colorShadow[] = {1,1,1,0};
 	
 };
 
 class StatusIcons {
 	
-		idd = 13379;
+		idd = 13370;
 		fadein = 1;
 		fadeout = 1;
 		duration = 99999;
@@ -61,7 +62,7 @@ class StatusIcons {
 		{
 			class Stats: RscControlsGroup
 			{
-				idc=13370;
+				idc=13371;
 				x = safeZoneX;
 				y = 1 / 2 - 0.15;
 				w = 0.1721618 * safezoneW;
@@ -70,46 +71,79 @@ class StatusIcons {
 				
 				class controls
 				{
+					//////////////////////////////////////////////////////////////
 					class HealthIcon: RscText
 					{
-						idc=13373;
+						idc=13372;
 						x="0";
 						y="0";
 						w = 0.15;
 						h = 0.15 * 3 / 4;
+						text = "";
+						colorText[]={"0","0","0",0.7};
 					};
-					class HungerIcon: HealthIcon {
-						idc=13374;
-						y = 0.15;
-						text="";
-					};
-					class ThirstIcon: HealthIcon {
-						idc=13375;
-						y = 0.30;
-						text="";
-					};
-					class ColdIcon: HealthIcon {
-						idc=13376;
-						y = 0.45;
-						text="";
+					class HealthCircleBar: HealthIcon {
+						idc = 13392;
+						text = "";
+						colorText[]={"1","1","1",1};
 					};
 					class HealthLabel: HealthIcon {
-						idc = 13377;
+						idc = 13382;
 						x = 0.1;
 						style = 2;
 						sizeEx="20 * pixelH";
+						colorText[]={"1","1","1",1};
 						text = "";
 					};
-					class FoodLabel: HealthLabel {
-						idc = 13378;
+					//////////////////////////////////////////////////////////////
+					class HungerIcon: HealthIcon {
+						idc=13373;
 						y = 0.15;
+						colorText[]={"0","0","0",0.7};
+						text="";
+					};
+					class HungerCircleBar: HungerIcon{
+						idc = 13393;
+						text="";
+						colorText[]={"1","1","1",1};
+					};
+					class HungerLabel: HealthLabel {
+						idc = 13383;
+						y = 0.15;
+						colorText[]={"1","1","1",1};
 						text = "";
 					};
-					class Thirst: HealthLabel {
-						idc = 13379;
+					//////////////////////////////////////////////////////////////
+					class ThirstIcon: HungerIcon {
+						idc=13374;
 						y = 0.30;
+						colorText[]={"0","0","0",0.7};
+						text="";
+					};
+					class ThirstCircleBar: ThirstIcon {
+						idc = 13394;
+						colorText[]={"1","1","1",1};
+						text="";
+					};
+					class ThirstLabel: HealthLabel {
+						idc = 13384;
+						y = 0.30;
+						colorText[]={"1","1","1",1};
 						text = "";
 					};
+					//////////////////////////////////////////////////////////////
+					class ColdIcon: HealthIcon {
+						idc = 13375;
+						y = 0.45;
+						colorText[]={"0","0","0",0.7};
+						text="";
+					};
+					class ColdCircle: ColdIcon{
+						idc = 13395;
+						colorText[]={"1","1","1",1};
+						text="statusIcons\circlebar\100.paa";
+					};
+					//////////////////////////////////////////////////////////////
 				};
 			};
 		};	

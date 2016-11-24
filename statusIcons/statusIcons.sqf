@@ -38,11 +38,11 @@
 			_hunger = round (ExileClientPlayerAttributes select 2);
 			_thirst = round (ExileClientPlayerAttributes select 3);
 			
-			_ctrl = _display displayCtrl 13377;
+			_ctrl = _display displayCtrl 13382;
 			_ctrl ctrlSetText format["%1%2",_health,'%'];
-			_ctrl = _display displayCtrl 13378;
+			_ctrl = _display displayCtrl 13383;
 			_ctrl ctrlSetText format["%1%2",_hunger,'%'];
-			_ctrl = _display displayCtrl 13379;
+			_ctrl = _display displayCtrl 13384;
 			_ctrl ctrlSetText format["%1%2",_thirst,'%'];
 		
 		
@@ -67,13 +67,13 @@
 		
 		if (!(_currentInfo isEqualTo _currentToggled)) then {
 			if (_currentToggled isEqualTo false) then {
-				[13377] call _hideControl;
-				[13378] call _hideControl;
-				[13379] call _hideControl;
+				[13382] call _hideControl;
+				[13383] call _hideControl;
+				[13384] call _hideControl;
 			} else {
-				[13377] call _showControl;
-				[13378] call _showControl;
-				[13379] call _showControl;
+				[13382] call _showControl;
+				[13383] call _showControl;
+				[13384] call _showControl;
 			};
 		};
 	};
@@ -126,13 +126,15 @@
 	
 			if ( (_bodyTemperature< 36) && ((player getVariable "sb_isCold") isEqualTo false) ) then {
 				player setVariable["sb_isCold",true];
-				(_display displayCtrl 13376) ctrlSetText "statusIcons\icons\status\cold.paa";
-				[(_display displayCtrl 13376)] call sb_fadeIn;
+				(_display displayCtrl 13375) ctrlSetText "statusIcons\icons\cold.paa";
+				[(_display displayCtrl 13375)] call sb_fadeIn;
+                [(_display displayCtrl 13395)] call sb_fadeIn;
 			};
 			
 			if ((_bodyTemperature >= 36) && ((player getVariable "sb_isCold") isEqualTo true)) then {
 				player setVariable["sb_isCold",false];
-				[(_display displayCtrl 13376)] call sb_fadeOut;
+				[(_display displayCtrl 13375)] call sb_fadeOut;
+                [(_display displayCtrl 13395)] call sb_fadeOut;
 			};
 	
 	};
@@ -147,18 +149,18 @@
 		_display = (uiNamespace getVariable "StatusIcons");
 		
 		if (_iconh != "-1") then {
-			(_display displayCtrl 13373) ctrlSetText format["statusIcons\icons\health\%1.paa",_iconh];
-			[(_display displayCtrl 13373)] call sb_fadeIn;
+			(_display displayCtrl 13392) ctrlSetText format["statusIcons\circlebar\%1.paa",_iconh];
+			[(_display displayCtrl 13392)] call sb_fadeIn;
 		};
 		
 		if (_iconf != "-1") then {
-			(_display displayCtrl 13374) ctrlSetText format["statusIcons\icons\hunger\%1.paa",_iconf];
-			[(_display displayCtrl 13374)] call sb_fadeIn;
+			(_display displayCtrl 13393) ctrlSetText format["statusIcons\circlebar\%1.paa",_iconf];
+			[(_display displayCtrl 13393)] call sb_fadeIn;
 		};
 		
 		if (_iconw != "-1") then {
-			(_display displayCtrl 13375) ctrlSetText format["statusIcons\icons\thirst\%1.paa",_iconw];
-			[(_display displayCtrl 13375)] call sb_fadeIn;
+			(_display displayCtrl 13394) ctrlSetText format["statusIcons\circlebar\%1.paa",_iconw];
+			[(_display displayCtrl 13394)] call sb_fadeIn;
 		};
 		
 	};
@@ -188,6 +190,20 @@
 		player setVariable ["sb_isCold",false];
 		_rscLayer = "StatusIcons" call BIS_fnc_rscLayer;
 		_rscLayer = cutRsc["StatusIcons","PLAIN",1,false];
+		_initIcons = {
+			_idc = _this select 0;
+			_icon = _this select 1;
+			_display = (uiNamespace getVariable "StatusIcons");
+			_ctrl = _display displayCtrl _idc;
+			_ctrl ctrlSetText format["statusIcons\icons\%1.paa",_icon];
+		};
+		[13372,"health"] call _initIcons;
+		[13373,"hunger"] call _initIcons;
+		[13374,"thirst"] call _initIcons;
+		[13375,"cold"] call _initIcons;
+		_display = (uiNamespace getVariable "StatusIcons");
+		[(_display displayCtrl 13375)] call sb_fadeOut;
+		[(_display displayCtrl 13395)] call sb_fadeOut;
 		[_hpIcon,_hungerIcon,_thirstIcon,true] call sb_updateIcons;
 		[] call sb_checkTemp;
 
